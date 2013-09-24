@@ -11,7 +11,7 @@ namespace wcf\util {
 }
 
 namespace {
-	require_once __DIR__.'/../file/util/Signer.class.php';
+	require_once __DIR__.'/../file/lib/util/Signer.class.php';
 	require_once 'PHPUnit/Framework/TestCase.php';
 	use \wcf\util\Signer;
 	
