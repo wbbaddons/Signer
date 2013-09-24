@@ -1,7 +1,7 @@
 <?php
 namespace wcf\util {
 	class PasswordUtil {
-		public function secureCompare($a, $b) {
+		public static function secureCompare($a, $b) {
 			$a = (string) $a;
 			$b = (string) $b;
 			
