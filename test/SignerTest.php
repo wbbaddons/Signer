@@ -55,6 +55,9 @@ namespace {
 			$this->assertTrue(Signer::validateSignedString(Signer::createSignedString('a')));
 			$this->assertTrue(Signer::validateSignedString(Signer::createSignedString('b')));
 			
+			$this->assertFalse(Signer::validateSignedString('f72bf6ad61628dec3c2bc6b9530f63c51244e77b-Xg=='));
+			$this->assertFalse(Signer::validateSignedString('f72bf6ad61628dec3c2bc6b9530f63c51244e77c-Yg=='));
+			
 			$this->assertFalse(Signer::validateSignedString(null));
 			$this->assertFalse(Signer::validateSignedString(false));
 			$this->assertFalse(Signer::validateSignedString(1));
@@ -75,6 +78,9 @@ namespace {
 			
 			$this->assertEquals('a', Signer::getValueFromSignedString(Signer::createSignedString('a')));
 			$this->assertEquals('b', Signer::getValueFromSignedString(Signer::createSignedString('b')));
+			
+			$this->assertNull(Signer::getValueFromSignedString('cd33db5a64e8a2185659da6f09dc78676bc5a19a-XQ=='));
+			$this->assertNull(Signer::getValueFromSignedString('f72bf6ad61628dec3c2bc6b9530f63c51244e77c-Yg=='));
 			
 			$this->assertNull(Signer::getValueFromSignedString(null));
 			$this->assertNull(Signer::getValueFromSignedString(false));
