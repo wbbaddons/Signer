@@ -70,7 +70,7 @@ final class Signer {
 	 * @see		\wcf\util\HeaderUtil
 	 */
 	public static function setSignedCookie($name, $value = '', $expire = 0) {
-		HeaderUtil::setCookie($name, self::getSignedString($value), $expire);
+		HeaderUtil::setCookie($name, self::createSignedString($value), $expire);
 	}
 	
 	/**
@@ -84,11 +84,11 @@ final class Signer {
 	 * @return	string
 	 */
 	public static function getSignedCookie($name) {
-		if (!isset($_COOKIE[$name])) return null;
-		$value = self::getValueFromSignedString($_COOKIE[$name]);
+		if (!isset($_COOKIE[COOKIE_PREFIX.$name])) return null;
+		$value = self::getValueFromSignedString($_COOKIE[COOKIE_PREFIX.$name]);
 		
 		if ($value === null) {
-			unset($_COOKIE[$name]);
+			unset($_COOKIE[COOKIE_PREFIX.$name]);
 			HeaderUtil::setCookie($name, '', -1337);
 		}
 		
