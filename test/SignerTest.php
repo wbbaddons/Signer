@@ -30,6 +30,8 @@ namespace {
 		
 		/**
 		 * Tests Signer::getSignature()
+		 *
+		 * @covers \wcf\util\Signer::getSignature
 		 */
 		public function testGetSignature() {
 			$this->assertEquals('cd33db5a64e8a2185659da6f09dc78676bc5a19a', Signer::getSignature('a'));
@@ -39,6 +41,8 @@ namespace {
 		
 		/**
 		 * Tests Signer::createSignedString()
+		 *
+		 * @covers \wcf\util\Signer::createSignedString
 		 */
 		public function testCreateSignedString() {
 			$this->assertEquals('cd33db5a64e8a2185659da6f09dc78676bc5a19a-YQ==', Signer::createSignedString('a'));
@@ -47,6 +51,8 @@ namespace {
 		
 		/**
 		 * Tests Signer::validateSignedString()
+		 *
+		 * @covers \wcf\util\Signer::validateSignedString
 		 */
 		public function testValidateSignedString() {
 			$this->assertTrue(Signer::validateSignedString('cd33db5a64e8a2185659da6f09dc78676bc5a19a-YQ=='));
@@ -71,6 +77,8 @@ namespace {
 		
 		/**
 		 * Tests Signer::getValueFromSignedString()
+		 *
+		 * @covers \wcf\util\Signer::getValueFromSignedString
 		 */
 		public function testGetValueFromSignedString() {
 			$this->assertEquals('a', Signer::getValueFromSignedString('cd33db5a64e8a2185659da6f09dc78676bc5a19a-YQ=='));

@@ -24,7 +24,9 @@ final class Signer {
 			return hash_hmac('sha1', $value, SIGNER_SECRET);
 		}
 		else {
+			// @codeCoverageIgnoreStart
 			return self::hmac('sha1', $value, SIGNER_SECRET);
+			// @codeCoverageIgnoreEnd
 		}
 	}
 	
@@ -73,6 +75,8 @@ final class Signer {
 	 * Sets a signed cookie.
 	 * 
 	 * @see		\wcf\util\HeaderUtil
+	 *
+	 * @codeCoverageIgnore
 	 */
 	public static function setSignedCookie($name, $value = '', $expire = 0) {
 		HeaderUtil::setCookie($name, self::createSignedString($value), $expire);
@@ -87,6 +91,8 @@ final class Signer {
 	 * 
 	 * @param	string	$name
 	 * @return	null|string
+	 *
+	 * @codeCoverageIgnore
 	 */
 	public static function getSignedCookie($name) {
 		if (!isset($_COOKIE[COOKIE_PREFIX.$name])) return null;
@@ -138,5 +144,8 @@ final class Signer {
 		return $algo($oKey . $algo($iKey . $data, true), $rawOutput);
 	}
 	
+	/**
+	 * @codeCoverageIgnore
+	 */
 	private function __construct() { }
 }

@@ -30,6 +30,8 @@ namespace {
 		/**
 		 * Tests with test data from RFC 2104
 		 * @see http://tools.ietf.org/html/rfc2104#page-8
+		 *
+		 * @covers \wcf\util\Signer::hmac
 		 */
 		public function testRFCTestData() {
 			$this->assertSame('9294727a3638bb1c13f48ef8158bfc9d', $this->method->invokeArgs(null, array('md5', 'Hi There', str_repeat("\x0B", 16))));
@@ -40,6 +42,8 @@ namespace {
 		/**
 		 * Tests with test data from RCF 2104 againt hash_hmac
 		 * @see http://tools.ietf.org/html/rfc2104#page-8
+		 *
+		 * @covers \wcf\util\Signer::hmac
 		 */
 		public function testRFCTestDataCompare() {
 			$data = 'Hi There';
@@ -69,6 +73,8 @@ namespace {
 		
 		/**
 		 * Tests with random data againt hash_hmac
+		 *
+		 * @covers \wcf\util\Signer::hmac
 		 */
 		public function testRandomData() {
 			for ($i = 0; $i < 10; $i++) {
@@ -84,6 +90,8 @@ namespace {
 		
 		/**
 		 * Tests with random data againt hash_hmac
+		 *
+		 * @covers \wcf\util\Signer::hmac
 		 */
 		public function testRandomBinaryData() {
 			for ($i = 0; $i < 10; $i++) {
@@ -98,7 +106,26 @@ namespace {
 		}
 		
 		/**
+		 * Tests key greater than block size
+		 *
+		 * @covers \wcf\util\Signer::hmac
+		 */
+		public function testTooLongKey() {
+			$key = 'Never gonna give you up, never gonna let you down, never gonna run around and desert you ...';
+			$data = 'The Game';
+			
+			$this->assertSame(hash_hmac('md5', $data, $key), $this->method->invokeArgs(null, array('md5', $data, $key)));
+			$this->assertSame(hash_hmac('sha1', $data, $key), $this->method->invokeArgs(null, array('sha1', $data, $key)));
+			$this->assertSame(hash_hmac('md5', $data, $key, true), $this->method->invokeArgs(null, array('md5', $data, $key, true)));
+			$this->assertSame(hash_hmac('sha1', $data, $key, true), $this->method->invokeArgs(null, array('sha1', $data, $key, true)));
+		}
+		
+		
+		
+		/**
 		 * @expectedException wcf\system\exception\SystemException
+		 *
+		 * @covers \wcf\util\Signer::hmac
 		 */
 		public function testInvalidAlgorithm() {
 			$this->method->invokeArgs(null, array('totallyInvalidHashingAlgorithm', 'some data', 'some key'));
