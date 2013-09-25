@@ -20,7 +20,12 @@ final class Signer {
 	public static function getSignature($value) {
 		if (SIGNER_SECRET === '') throw new \wcf\system\exception\SystemException('Empty SIGNER_SECRET, aborting');
 		
-		return hash_hmac('sha1', $value, SIGNER_SECRET);
+		if (function_exists('hash_hmac')) {
+			return hash_hmac('sha1', $value, SIGNER_SECRET);
+		}
+		else {
+			return self::hmac('sha1', $value, SIGNER_SECRET);
+		}
 	}
 	
 	/**
@@ -55,7 +60,7 @@ final class Signer {
 	 * - Returns null if the string is not properly signed.
 	 * 
 	 * @param	string	$string
-	 * @return	null
+	 * @return	null|string
 	 */
 	public static function getValueFromSignedString($string) {
 		if (!self::validateSignedString($string)) return null;
@@ -81,7 +86,7 @@ final class Signer {
 	 * - Unsets the cookie if it is not properly signed.
 	 * 
 	 * @param	string	$name
-	 * @return	string
+	 * @return	null|string
 	 */
 	public static function getSignedCookie($name) {
 		if (!isset($_COOKIE[COOKIE_PREFIX.$name])) return null;
@@ -93,6 +98,44 @@ final class Signer {
 		}
 		
 		return $value;
+	}
+	
+	/**
+	 * HMAC function based on RFC 2104 <http://tools.ietf.org/html/rfc2104>
+	 * This function mimics PHPs hash_hmac function
+	 *
+	 * @param	string	$algo		Name of hashing algorithm to be used
+	 * @param	string	$data		Data to be hashed
+	 * @param	string	$key		Encryption key
+	 * @param	boolean	$rawOutput	Determines whether raw binary should be output
+	 * @return	string			If $rawOutput is enabled, a binary string is being returned
+	 */
+	private static function hmac($algo, $data, $key, $rawOutput = false) {
+		$algo = trim(strtolower($algo));
+		
+		switch ($algo) {
+			case 'md5':
+			case 'sha1':
+				$blockSize = 64;
+			break;
+			default:
+				throw new \wcf\system\exception\SystemException('Unknown hashing algorithm: ' . $algo);
+		}
+		
+		if (strlen($key) > $blockSize) {
+			$key = $algo($key, true);
+		}
+		
+		$key = str_pad($key, $blockSize, "\x00", STR_PAD_RIGHT);
+		
+		$iKey = '';
+		$oKey = '';
+		for ($i = 0; $i < $blockSize; $i++) {
+			$iKey .= $key[$i] ^ "\x36";
+			$oKey .= $key[$i] ^ "\x5C";
+		}
+		
+		return $algo($oKey . $algo($iKey . $data, true), $rawOutput);
 	}
 	
 	private function __construct() { }
