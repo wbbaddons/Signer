@@ -2,8 +2,8 @@
 <package name="be.bastelstu.wcf.signer" xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/package.xsd">
 	<packageinformation>
 		<packagename><![CDATA[Signer]]></packagename>
-		<packagedescription><![CDATA[]]></packagedescription>
-		<packagedescription language="de"><![CDATA[]]></packagedescription>
+		<packagedescription><![CDATA[Signer allows to sign data to make sure the user does not tamper with it.]]></packagedescription>
+		<packagedescription language="de"><![CDATA[Signer erlaubt es Daten fälschungssicher zu signieren.]]></packagedescription>
 		<isapplication>0</isapplication>
 		<version>1.0.0 Beta 3</version>
 		<date>2013-09-25</date>
