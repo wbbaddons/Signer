@@ -7,8 +7,8 @@ namespace wcf\util;
  * @author 	Tim Düsterhus
  * @copyright	2013 Tim Düsterhus
  * @license	BSD 3-Clause License <http://opensource.org/licenses/BSD-3-Clause>
- * @package	be.bastelstu.wcf.sso
- * @subpackage	action
+ * @package	be.bastelstu.wcf.signer
+ * @subpackage	util
  */
 final class Signer {
 	/**
