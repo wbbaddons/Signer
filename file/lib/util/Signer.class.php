@@ -31,7 +31,7 @@ final class Signer {
 	}
 	
 	/**
-	 * Creates a signed string.
+	 * Creates a signed (signature + encoded value) string.
 	 * 
 	 * @param	string	$value
 	 * @return	string
@@ -41,7 +41,8 @@ final class Signer {
 	}
 	
 	/**
-	 * Returns whether the given string is properly signed.
+	 * Returns whether the given string is a proper signed string.
+	 * (i.e. consists of a valid signature + encoded value)
 	 * 
 	 * @param	string	$string
 	 * @return	boolean
@@ -61,8 +62,9 @@ final class Signer {
 	 * 
 	 * - Returns null if the string is not properly signed.
 	 * 
-	 * @param	string	$string
+	 * @param	string		$string
 	 * @return	null|string
+	 * @see		\wcf\util\Signer::validateSignedString()
 	 */
 	public static function getValueFromSignedString($string) {
 		if (!self::validateSignedString($string)) return null;
@@ -83,15 +85,16 @@ final class Signer {
 	}
 	
 	/**
-	 * Returns the value of the cookie with the given name, after
+	 * Returns the value of the cookie with the given $name, after
 	 * validating whether it is properly signed.
 	 * 
 	 * - Returns null if the cookie is not properly signed, or does not exist.
 	 * - Unsets the cookie if it is not properly signed.
 	 * 
-	 * @param	string	$name
+	 * @param	string		$name
 	 * @return	null|string
-	 *
+	 * @see		\wcf\util\Signer::getValueFromSignedString()
+	 * 
 	 * @codeCoverageIgnore
 	 */
 	public static function getSignedCookie($name) {
