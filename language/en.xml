@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/language.xsd" languagecode="en">	
+	<category name="wcf.acp.option">
+		<item name="wcf.acp.option.category.security.general.signer"><![CDATA[Secret Key]]></item>
+		<item name="wcf.acp.option.signer_secret"><![CDATA[Secret Key]]></item>
+		<item name="wcf.acp.option.signer_secret.description"><![CDATA[A secret key that serves the purpose of validating data to prevent tampering. Keep this key secret! A random key was generated for you during installation, you don't need to change it.]]></item>
+	</category>
+</language>

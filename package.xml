@@ -31,6 +31,6 @@
 	</instructions>
 	
 	<instructions type="update" fromversion="1.0.0 RC 1">
-		<instruction type="file">file.tar</instruction>
+		<instruction type="language">language/*.xml</instruction>
 	</instructions>
 </package>
